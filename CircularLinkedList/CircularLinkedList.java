@@ -6,28 +6,55 @@ package CircularLinkedList;
  * @licence: proprietary
  */
 public class CircularLinkedList {
-
     private Node head;
     private Node lastInsert;
+    private Node pointer;
+    private Node priviousPointer;
+
     //  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.
     //          SETTER
     //  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.
 
-    public void setLastInsert(Node lastInsert) {
+    private void setLastInsert(Node lastInsert) {
         this.lastInsert = lastInsert;
     }
 
-    public void setHead(Node node) {
+    public void setPointer(Node pointer) {
+    }
+
+    private void setHead(Node node) {
         if (this.head != null) {
             return;
         }
         node.setHead(true);
+        setPointer(node);
         this.head = node;
+    }
+
+
+    public void setPriviousPointer(Node priviousPointer) {
+        this.priviousPointer = priviousPointer;
     }
 
     //  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.
     //          GETTER
     //  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.  -.
+    public Node getIndex() {
+        return this.pointer;
+    }
+
+    public Node getPriviousPointer() {
+        return priviousPointer;
+    }
+
+    public Node getPointer() {
+        return pointer;
+    }
+
+    public Node next() {
+        return pointer.getNext();
+    }
+
     public Node getHead() {
         return head;
     }
@@ -38,7 +65,7 @@ public class CircularLinkedList {
 
     public void insert(Node newNode) {
         if (head == null) {
-            // handle first node
+            this.pointer = newNode;
             setHead(newNode);
             return;
         }
@@ -51,7 +78,7 @@ public class CircularLinkedList {
             return;
 
         }
-        Node localLastInsert=getLastInsert();
+        Node localLastInsert = getLastInsert();
         localLastInsert.setNext(newNode);
         newNode.setNext(localHead);
         setLastInsert(newNode);
@@ -61,5 +88,10 @@ public class CircularLinkedList {
         if (node.isHead()) {
             this.head = node;
         }
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
